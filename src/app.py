@@ -2,6 +2,7 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 import itemPlant
+from infoPlant import Plant
 
 from menuLeft import AddMenuContextLeft 
 
@@ -12,6 +13,16 @@ customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "gre
 class App(customtkinter.CTk):
     WIDTH = 1600
     HEIGHT = 900
+    numPlant = 0
+    frame_right = ""
+    llPlants = [Plant("YES","12/12/2022",[False,False,True,True],2),Plant("PACO","12/12/2022",[False,True,True,False],3),Plant("SPANCQ","12/12/2022",[False,False,False,True],4)]
+
+
+    def addPlantToMenu(self): 
+        self.itemPlant = itemPlant.PlantWidget(self.frame_right,self.llPlants[self.numPlant],10)
+        self.itemPlant.grid(row=self.numPlant,column=0,sticky="nswe", padx=10, pady=10)
+        self.numPlant = self.numPlant + 1
+
 
     def dosomething(self):
         print("WAKA")
@@ -28,7 +39,7 @@ class App(customtkinter.CTk):
 
     def __init__(self):
         super().__init__()
-
+        numPlant = 0
         self.title("CustomTkinter complex_example.py")
         self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
         #self.protocol("WM_DELETE_WINDOW", self.on_closing)  # call .on_closing() when app gets closed
@@ -46,9 +57,8 @@ class App(customtkinter.CTk):
         self.frame_right.grid(row= 0,column=1,sticky="nswe", padx=10, pady=10)
         self.frame_right.grid_columnconfigure(0,weight=1)
 
-        self.itemPlant = itemPlant.PlantWidget(self.frame_right,"Planta","2021/09/21",10)
-        self.itemPlant.grid(row=0,column=0,sticky="nswe", padx=10, pady=10)
-
+        self.addPlantToMenu()
+        self.addPlantToMenu()
 
         # 3 Button to change window:
 

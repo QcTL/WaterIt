@@ -4,7 +4,7 @@ import customtkinter
 import buttonSeasons
 from PIL import Image, ImageTk
 import os
-#TODO CLASS PLANT WITH ALL INFO.
+import infoPlant
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -15,14 +15,14 @@ class PlantWidget(customtkinter.CTkFrame):
     def dosomething(self):
         print("TODO")
 
-    def __init__(self, parent, namePlant, datePlant, timeBtwWater, default=""):
+    def __init__(self, parent,plant, default=""):
         customtkinter.CTkFrame.__init__(self, parent, height=180,corner_radius=5)
-        
+        self.plant = plant
         #Plant Get Seasons active:
-        self.activeSeasons = [True, False, False, True]
+        self.activeSeasons = self.plant.getSeasonActive()
+        print(self.activeSeasons)
 
-
-        self.labelPlant = customtkinter.CTkEntry(master=self,placeholder_text=namePlant,text_font=("Roboto",-20), width = 300, placeholder_text_color="#dce4ee")
+        self.labelPlant = customtkinter.CTkEntry(master=self,placeholder_text=self.plant.getName(),text_font=("Roboto",-20), width = 300, placeholder_text_color="#dce4ee")
         self.labelPlant.grid(row = 0, column = 0, padx=30, pady= 25)
         
 
@@ -31,7 +31,7 @@ class PlantWidget(customtkinter.CTkFrame):
         self.labelSeasons.grid(row=1, column =0,pady=10)
 
         #DATE:
-        self.labelDate= customtkinter.CTkLabel(self, text=datePlant,text_font=("Roboto",-16),corner_radius = 10,fg_color="grey")
+        self.labelDate= customtkinter.CTkLabel(self, text=self.plant.getDate(),text_font=("Roboto",-16),corner_radius = 10,fg_color="grey")
         self.labelDate.grid(row=0, column =1,pady=20)
         # Seasons ActivePlant
 
@@ -55,7 +55,7 @@ class PlantWidget(customtkinter.CTkFrame):
         self.labelTimeWater = customtkinter.CTkFrame(self, width = 200, corner_radius=20)
         self.labelTimeWater.grid(row=1, column =1,pady=10)
 
-        self.waterPlant = customtkinter.CTkEntry(master=self.labelTimeWater,placeholder_text=timeBtwWater, text_font=("Roboto",-16), width = 75, placeholder_text_color="#dce4ee")
+        self.waterPlant = customtkinter.CTkEntry(master=self.labelTimeWater,placeholder_text=self.plant.getTimeWater(), text_font=("Roboto",-16), width = 75, placeholder_text_color="#dce4ee")
         self.waterPlant.grid(row=0,column=1)
 
             #Icon Water:
