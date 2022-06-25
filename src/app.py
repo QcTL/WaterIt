@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
+import itemPlant
 
 from menuLeft import AddMenuContextLeft 
 
@@ -43,6 +44,11 @@ class App(customtkinter.CTk):
        
         self.frame_right= customtkinter.CTkFrame(self, width = 200, corner_radius=20)
         self.frame_right.grid(row= 0,column=1,sticky="nswe", padx=10, pady=10)
+        self.frame_right.grid_columnconfigure(0,weight=1)
+
+        self.itemPlant = itemPlant.PlantWidget(self.frame_right,"Planta","2021/09/21",10)
+        self.itemPlant.grid(row=0,column=0,sticky="nswe", padx=10, pady=10)
+
 
         # 3 Button to change window:
 
