@@ -9,13 +9,33 @@ import infoPlant
 PATH = os.path.dirname(os.path.realpath(__file__))
 
 class PlantWidget(customtkinter.CTkFrame):
-    
+    """
+    class to Represent in Widget the Plant
 
+    ...
+
+    Attributes
+    ----------
+    plant : Plant
+        Plant you want to be represented
+
+    Methods
+    -------
+        Getters of all the Methods
+    """
 
     def dosomething(self):
         print("TODO")
 
-    def __init__(self, parent,plant, default=""):
+    def __init__(self, parent,plant):
+        """
+        Parameters
+        ----------
+        parent : widget
+            Widget Parent, where it will go this widget
+        plant : Plant
+            Plant you want to be represented
+        """
         customtkinter.CTkFrame.__init__(self, parent, height=180,corner_radius=5)
         self.plant = plant
         #Plant Get Seasons active:
@@ -64,4 +84,12 @@ class PlantWidget(customtkinter.CTkFrame):
         self.waterLabel.grid(row=0,column=0) 
 
     def get(self):
-        return self.entry.get()
+        """Return the value that save this widget, in this case, the edited plant (That the user has edited with the UI) 
+
+        Parameters:
+            none
+
+        Returns:
+        plant: edited Plant
+       """
+        return self.plant
