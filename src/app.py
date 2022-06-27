@@ -1,12 +1,9 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-import itemPlant
-from infoPlant import Plant
-import VertScrollFrame
 import menuLeft 
-import readerJson
-from datetime import date
+import menuRight 
+
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -15,22 +12,19 @@ customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "gre
 class App(customtkinter.CTk):
     WIDTH = 1600
     HEIGHT = 900
-    numPlant = 0
-    frame_right = ""
-    frame_r_scroll = ""
-    llPlants = []
-    llWidPlants = []
+
 
     def createNewPlant(self):
-        today = date.today()
-        d = today.strftime("%d/%m/%Y")
-        self.llPlants.append(Plant("PlaceHolder", d, [False,False,False,False], 0))
+        self.frame_right.createNewPlant()
 
-    def addPlantToMenu(self): 
-        self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self.llPlants[self.numPlant])
-        self.wigPlant.grid(row=self.numPlant,column=0,sticky="nswe", padx = 10, pady = 10)
-        self.llWidPlants.append(self.wigPlant)
-        self.numPlant = self.numPlant + 1
+    def addPlantToMenu(self):
+        self.frame_right.addPlantToMenu()
+
+    def saveTheEditedPlants(self):
+        self.frame_right.saveTheEditedPlants()
+
+    
+
 
 
     def dosomething(self):
@@ -45,19 +39,11 @@ class App(customtkinter.CTk):
         width=self.widthButtons))
     #TODO> Bind <Configure> to know the new size of the screen
 
-
-    def saveTheEditedPlants(self):
-        for i in range(0,len(self.llPlants)):
-            self.llPlants[i] = Plant(self.llWidPlants[i].getName(),self.llPlants[i].getDate(),self.llWidPlants[i].getSeasonsActive(),self.llWidPlants[i].getWaterTime())
-        saveToJson = readerJson.ReadorJSON('/src/plantsFile.json')
-        saveToJson.savePlantsToJson(self.llPlants)
-        print("Plantes canviades")
-        print(self.llPlants[i].getName())
-
+    
     def __init__(self, listPlants):
         super().__init__()
-        self.llPlants = listPlants
-        self.numPlant = 0
+        
+        
         self.title("CustomTkinter complex_example.py")
         self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
         #self.protocol("WM_DELETE_WINDOW", self.on_closing)  # call .on_closing() when app gets closed
@@ -74,16 +60,9 @@ class App(customtkinter.CTk):
 
 
 
-        self.frame_right= customtkinter.CTkFrame(self, width = 200, corner_radius=20)
+        self.frame_right= menuRight.MenuRWidget(self,listPlants)
         self.frame_right.grid(row= 0,column=1,sticky="nswe", padx=10, pady=10)
-        self.frame_right.grid_columnconfigure(0,weight=1)
-        self.frame_right.grid_rowconfigure(0,weight=1)
 
-        self.frame_r_scroll = VertScrollFrame.VerticalScrolledFrame(self.frame_right)
-        self.frame_r_scroll.grid(row=0,column=0,sticky="nswe")
-
-        for i in range(0,len(self.llPlants)):
-            self.addPlantToMenu()
 
         # 3 Button to change window:
 
