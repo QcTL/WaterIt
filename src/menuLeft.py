@@ -8,7 +8,8 @@ class MenuLWidget(customtkinter.CTkFrame):
 	parent = ""
 
 	def addPlantList(self):
-		print("TODO :)")
+		self.parent.createNewPlant()
+		self.parent.addPlantToMenu()
 
 	def applyChangesPlantList(self):
 		self.parent.saveTheEditedPlants()

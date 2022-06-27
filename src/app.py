@@ -6,6 +6,7 @@ from infoPlant import Plant
 import VertScrollFrame
 import menuLeft 
 import readerJson
+from datetime import date
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -19,6 +20,11 @@ class App(customtkinter.CTk):
     frame_r_scroll = ""
     llPlants = []
     llWidPlants = []
+
+    def createNewPlant(self):
+        today = date.today()
+        d = today.strftime("%d/%m/%Y")
+        self.llPlants.append(Plant("PlaceHolder", d, [False,False,False,False], 0))
 
     def addPlantToMenu(self): 
         self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self.llPlants[self.numPlant])
