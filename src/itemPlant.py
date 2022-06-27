@@ -36,7 +36,7 @@ class PlantWidget(customtkinter.CTkFrame):
         plant : Plant
             Plant you want to be represented
         """
-        customtkinter.CTkFrame.__init__(self, parent, height=180,corner_radius=5)
+        customtkinter.CTkFrame.__init__(self, parent, height=180,corner_radius=15)
         self.plant = plant
         #Plant Get Seasons active:
         self.activeSeasons = self.plant.getSeasonActive()
@@ -48,11 +48,13 @@ class PlantWidget(customtkinter.CTkFrame):
 
         self.labelSeasons = customtkinter.CTkFrame(self, width = 200, corner_radius=20)
         self.labelSeasons.grid_columnconfigure([0,1,2,3],minsize=50)
-        self.labelSeasons.grid(row=1, column =0,pady=10)
+        self.labelSeasons.grid(row=1, column =0,pady=25)
 
         #DATE:
         self.labelDate= customtkinter.CTkLabel(self, text=self.plant.getDate(),text_font=("Roboto",-16),corner_radius = 10,fg_color="grey")
-        self.labelDate.grid(row=0, column =1,pady=20)
+        self.labelDate.grid(row=0, column =1,pady=20, padx=30)
+        
+
         # Seasons ActivePlant
 
         self.unSelectedColor ="#303036"
@@ -73,7 +75,7 @@ class PlantWidget(customtkinter.CTkFrame):
         #Time BTW WATER:
 
         self.labelTimeWater = customtkinter.CTkFrame(self, width = 200, corner_radius=20)
-        self.labelTimeWater.grid(row=1, column =1,pady=10)
+        self.labelTimeWater.grid(row=1, column =1,pady=10, padx=30)
 
         self.waterPlant = customtkinter.CTkEntry(master=self.labelTimeWater,placeholder_text=self.plant.getTimeWater(), text_font=("Roboto",-16), width = 75, placeholder_text_color="#dce4ee")
         self.waterPlant.grid(row=0,column=1)
@@ -93,3 +95,26 @@ class PlantWidget(customtkinter.CTkFrame):
         plant: edited Plant
        """
         return self.plant
+
+    def getName(self) -> str:
+        if self.labelPlant.get() == "":
+            return self.plant.getName()
+        else:
+            return self.labelPlant.get()
+
+    def getDate(self) -> str:
+        if self.labelDate.get() == "":
+            return self.plant.getDate()
+        else:
+            return self.labelDate.get()
+    
+    def getSeasonsActive(self) -> list[bool]:
+        stateSeasons = [self.buttonWinter.get(),self.buttonSpring.get(),self.buttonSummer.get(),self.buttonAutumn.get()]
+        return stateSeasons
+
+    
+    def getWaterTime(self) -> int: 
+        if self.waterPlant.get() == "":
+            return self.plant.getTimeWater()
+        else:
+            return self.waterPlant.get()

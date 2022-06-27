@@ -3,8 +3,9 @@ import tkinter.messagebox
 import customtkinter
 import itemPlant
 from infoPlant import Plant
-
-from menuLeft import AddMenuContextLeft 
+import VertScrollFrame
+import menuLeft 
+import readerJson
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -15,12 +16,14 @@ class App(customtkinter.CTk):
     HEIGHT = 900
     numPlant = 0
     frame_right = ""
-    llPlants = [Plant("YES","12/12/2022",[False,False,True,True],2),Plant("PACO","12/12/2022",[False,True,True,False],3),Plant("SPANCQ","12/12/2022",[False,False,False,True],4)]
-
+    frame_r_scroll = ""
+    llPlants = []
+    llWidPlants = []
 
     def addPlantToMenu(self): 
-        self.itemPlant = itemPlant.PlantWidget(self.frame_right,self.llPlants[self.numPlant],10)
-        self.itemPlant.grid(row=self.numPlant,column=0,sticky="nswe", padx=10, pady=10)
+        self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self.llPlants[self.numPlant])
+        self.wigPlant.grid(row=self.numPlant,column=0,sticky="nswe", padx = 10, pady = 10)
+        self.llWidPlants.append(self.wigPlant)
         self.numPlant = self.numPlant + 1
 
 
@@ -37,9 +40,18 @@ class App(customtkinter.CTk):
     #TODO> Bind <Configure> to know the new size of the screen
 
 
-    def __init__(self):
+    def saveTheEditedPlants(self):
+        for i in range(0,len(self.llPlants)):
+            self.llPlants[i] = Plant(self.llWidPlants[i].getName(),self.llPlants[i].getDate(),self.llWidPlants[i].getSeasonsActive(),self.llWidPlants[i].getWaterTime())
+        saveToJson = readerJson.ReadorJSON('/src/plantsFile.json')
+        saveToJson.savePlantsToJson(self.llPlants)
+        print("Plantes canviades")
+        print(self.llPlants[i].getName())
+
+    def __init__(self, listPlants):
         super().__init__()
-        numPlant = 0
+        self.llPlants = listPlants
+        self.numPlant = 0
         self.title("CustomTkinter complex_example.py")
         self.geometry(f"{App.WIDTH}x{App.HEIGHT}")
         #self.protocol("WM_DELETE_WINDOW", self.on_closing)  # call .on_closing() when app gets closed
@@ -50,15 +62,22 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(1,weight=1)
 
         
-        AddMenuContextLeft(self)
-
+        self.frame_left = menuLeft.MenuLWidget(self)
+        self.frame_left.grid(row= 0,column=0,sticky="nswe", padx=10, pady=10)
        
+
+
+
         self.frame_right= customtkinter.CTkFrame(self, width = 200, corner_radius=20)
         self.frame_right.grid(row= 0,column=1,sticky="nswe", padx=10, pady=10)
         self.frame_right.grid_columnconfigure(0,weight=1)
+        self.frame_right.grid_rowconfigure(0,weight=1)
 
-        self.addPlantToMenu()
-        self.addPlantToMenu()
+        self.frame_r_scroll = VertScrollFrame.VerticalScrolledFrame(self.frame_right)
+        self.frame_r_scroll.grid(row=0,column=0,sticky="nswe")
+
+        for i in range(0,len(self.llPlants)):
+            self.addPlantToMenu()
 
         # 3 Button to change window:
 
