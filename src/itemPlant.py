@@ -27,7 +27,7 @@ class PlantWidget(customtkinter.CTkFrame):
     def dosomething(self):
         print("TODO")
 
-    def __init__(self, parent,plant):
+    def __init__(self, parent,classParent,plant):
         """
         Parameters
         ----------
@@ -38,6 +38,7 @@ class PlantWidget(customtkinter.CTkFrame):
         """
         customtkinter.CTkFrame.__init__(self, parent, height=180,corner_radius=15)
         self.plant = plant
+        self.parent = classParent
         #Plant Get Seasons active:
         self.activeSeasons = self.plant.getSeasonActive()
         print(self.activeSeasons)
@@ -71,7 +72,7 @@ class PlantWidget(customtkinter.CTkFrame):
         self.buttonAutumn = buttonSeasons.SeasonWidget(self.labelSeasons,"resources/seasons/Autumn.png","#c84c09",self.activeSeasons[3])
         self.buttonAutumn.grid(row=0, column = 3)  
 
-        
+    
         #Time BTW WATER:
 
         self.labelTimeWater = customtkinter.CTkFrame(self, width = 200, corner_radius=20)
@@ -83,7 +84,15 @@ class PlantWidget(customtkinter.CTkFrame):
             #Icon Water:
         self.water_image = ImageTk.PhotoImage(Image.open(PATH + "/../resources/water/drop.png").resize((40, 40)))
         self.waterLabel = tk.Label(self.labelTimeWater, image=self.water_image)
-        self.waterLabel.grid(row=0,column=0) 
+        self.waterLabel.grid(row=0,column=0)
+
+        #Delete Button
+        self.delButton = customtkinter.CTkButton(master=self, width=75, height=75,corner_radius=8,text="", fg_color="red",command=self.deleteWidget)
+        self.delButton.grid(row=1,column=2)
+
+    def deleteWidget(self):
+        self.parent.deletePlant(self.plant.getName())
+        self.destroy()
 
     def get(self):
         """Return the value that save this widget, in this case, the edited plant (That the user has edited with the UI) 

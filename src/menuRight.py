@@ -14,13 +14,24 @@ class MenuRWidget(customtkinter.CTkFrame):
     llPlants = []
     llWidPlants = []
 
+    def deletePlant(self,namePlant):
+        i = 0
+        found = False
+        while i < self.numPlant and not found:
+            found = self.llPlants[i].getName() == namePlant
+            if(not found):
+                i = i+1
+        print("Deleted: " + str(i)+ " :" + self.llPlants[i].getName())
+        self.llPlants.pop(i)
+        self.llWidPlants.pop(i)
+
     def createNewPlant(self):
         today = date.today()
         d = today.strftime("%d/%m/%Y")
         self.llPlants.append(Plant("PlaceHolder", d, [False,False,False,False], 0))
 
     def addPlantToMenu(self): 
-        self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self.llPlants[self.numPlant])
+        self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self,self.llPlants[self.numPlant])
         self.wigPlant.grid(row=self.numPlant,column=0,sticky="nswe", padx = 10, pady = 10)
         self.llWidPlants.append(self.wigPlant)
         self.numPlant = self.numPlant + 1
