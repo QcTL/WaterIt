@@ -87,7 +87,8 @@ class PlantWidget(customtkinter.CTkFrame):
         self.waterLabel.grid(row=0,column=0)
 
         #Delete Button
-        self.delButton = customtkinter.CTkButton(master=self, width=75, height=75,corner_radius=8,text="", fg_color="red",command=self.deleteWidget)
+        self.imageBin = ImageTk.PhotoImage(Image.open(PATH + "/../" + "resources/bin.png").resize((40, 40)))
+        self.delButton = customtkinter.CTkButton(master=self, width=75, height=75,corner_radius=8,text="", fg_color="#FF6961",command=self.deleteWidget,image= self.imageBin)
         self.delButton.grid(row=1,column=2)
 
     def deleteWidget(self):
