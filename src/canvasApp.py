@@ -6,7 +6,9 @@ class CanvasPage(customtkinter.CTkFrame):
     waitingForSecond = False
     firstPointLine = []
 
-    def pressedLeft(self, x:int, y:int):
+    placeElement=  ""
+
+    def create_line(self,x:int, y:int):
         print("plip2")
         if not self.waitingForSecond:
             self.waitingForSecond = True
@@ -17,6 +19,21 @@ class CanvasPage(customtkinter.CTkFrame):
             self.firstPointLine = [x,y]
 
 
+    def pressedLeft(self, x:int, y:int):
+        if self.placeElement == "line":
+            self.create_line(x,y)
+        elif self.placeElement == "placePlant":
+            create_plant()
+
+    def activateDesactivatePlaceElement(self, new_element):
+        if self.placeElement == "":
+            self.placeElement = new_element
+        elif self.placeElement == new_element:
+            self.placeElement = ""
+        print(self.placeElement)
+
+    def turnOnLine(self):
+        self.activateDesactivatePlaceElement("line")  
 
     def __init__(self, parent, listPlants):
         customtkinter.CTkFrame.__init__(self, parent)
@@ -37,7 +54,8 @@ class CanvasPage(customtkinter.CTkFrame):
                                  corner_radius=8,
                                  text="",
                                  fg_color="#006400", 
-                                 hover_color="#458728")
+                                 hover_color="#458728",
+                                 command= self.turnOnLine)
         self.buttonLine.place(relx=(0), rely=0.2, anchor=tkinter.N)
 
         self.buttonPlacePlants = customtkinter.CTkButton(master=self.canvas,
@@ -47,6 +65,7 @@ class CanvasPage(customtkinter.CTkFrame):
                                  corner_radius=8,
                                  text="",
                                  fg_color="#D35B58", 
-                                 hover_color="#C77C78")
+                                 hover_color="#C77C78",
+                                  command= lambda e: print(self.placeElement))
         self.buttonPlacePlants.place(relx=(0), rely=0.35, anchor=tkinter.N)
     

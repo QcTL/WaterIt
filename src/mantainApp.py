@@ -15,9 +15,8 @@ class PlantsPage(customtkinter.CTkFrame):
     def saveTheEditedPlants(self):
         self.frame_right.saveTheEditedPlants()
 
-    
-
-
+    def gotoCanvasFrame(self):
+        self.parent.swapFrame()
 
     def dosomething(self):
         print("WAKA")
@@ -34,7 +33,7 @@ class PlantsPage(customtkinter.CTkFrame):
 
     def __init__(self, parent, listPlants):
         customtkinter.CTkFrame.__init__(self, parent)
-        
+        self.parent = parent
         # 2 Segments _____________
         self.grid_rowconfigure(0,weight=1)
         self.grid_columnconfigure(1,weight=1)
@@ -62,7 +61,8 @@ class PlantsPage(customtkinter.CTkFrame):
                                  corner_radius=8,
                                  text="",
                                  fg_color="#006400", 
-                                 hover_color="#458728")
+                                 hover_color="#458728",
+                                 command=self.gotoCanvasFrame)
         self.buttonWaterPlants.place(relx=(0.030), rely=0.85, anchor=tkinter.CENTER)
         self.expandWhenHover(self.buttonWaterPlants)
 
