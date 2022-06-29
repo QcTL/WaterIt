@@ -28,7 +28,7 @@ class MenuRWidget(customtkinter.CTkFrame):
     def createNewPlant(self):
         today = date.today()
         d = today.strftime("%d/%m/%Y")
-        self.llPlants.append(Plant("PlaceHolder", d, [False,False,False,False], 0))
+        self.llPlants.append(Plant("PlaceHolder", d, [False,False,False,False], 0,d))
 
     def addPlantToMenu(self): 
         self.wigPlant = itemPlant.PlantWidget(self.frame_r_scroll.interior,self,self.llPlants[self.numPlant])
@@ -39,7 +39,7 @@ class MenuRWidget(customtkinter.CTkFrame):
 
     def saveTheEditedPlants(self):
         for i in range(0,len(self.llPlants)):
-            self.llPlants[i] = Plant(self.llWidPlants[i].getName(),self.llPlants[i].getDate(),self.llWidPlants[i].getSeasonsActive(),self.llWidPlants[i].getWaterTime())
+            self.llPlants[i] = Plant(self.llWidPlants[i].getName(),self.llPlants[i].getDate(),self.llWidPlants[i].getSeasonsActive(),self.llWidPlants[i].getWaterTime(), self.llWidPlants[i].getLastWaterTime())
         saveToJson = readerJson.ReadorJSON('/src/plantsFile.json')
         saveToJson.savePlantsToJson(self.llPlants)
         print("Plantes canviades")

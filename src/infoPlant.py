@@ -1,4 +1,4 @@
-
+from datetime import datetime
 
 class Plant():
 	"""
@@ -27,10 +27,11 @@ class Plant():
 
 	plt_name: str = ""
 	plt_date: str = "12/12/1990"
+	plt_latestWater: str = "12/12/1990"
 	plt_seasonActive: list[bool] = [True,True,True,True]
 	plt_timeBtwWater: int = 2
 
-	def __init__(self, name : str, date : str, datesActive : list[bool], waterTime: int):
+	def __init__(self, name : str, date : str, datesActive : list[bool], waterTime: int, dateLatesWater: str = ""):
 		"""
         Parameters
         ----------
@@ -48,7 +49,10 @@ class Plant():
 		self.plt_date = date
 		self.plt_seasonActive = datesActive
 		self.plt_timeBtwWater = waterTime
-	
+		if dateLatesWater == "":
+			self.plt_latestWater = date
+		else:
+			self.plt_latestWater = dateLatesWater
 	def getName(self) -> str:
 
 		return self.plt_name
@@ -61,3 +65,11 @@ class Plant():
 
 	def getTimeWater(self) -> int:
 		return self.plt_timeBtwWater
+
+	def getLastTimeWater(self) ->str:
+		return self.plt_latestWater
+
+	def needsWater(self) -> bool:
+		timeDiference =	datetime.strptime(datetime.today().strftime("%d/%m/%Y"),"%d/%m/%Y") - datetime.strptime(self.plt_latestWater, "%d/%m/%Y")
+		print(str(timeDiference.days) +" Comparat amb" + str(self.plt_timeBtwWater))
+		return int(timeDiference.days) >= int(self.plt_timeBtwWater)

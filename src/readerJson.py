@@ -17,7 +17,7 @@ class ReadorJSON():
 		listPlants = plant_obj
 		print("Lectura INICI: " + str(len(listPlants)))
 		for i in range(0,len(listPlants)):
-			self.instPlants.append(infoPlant.Plant(listPlants[i]['name'], listPlants[i]['date'], listPlants[i]['seasonActive'], listPlants[i]['timeBtwWater']))
+			self.instPlants.append(infoPlant.Plant(listPlants[i]['name'], listPlants[i]['date'], listPlants[i]['seasonActive'], listPlants[i]['timeBtwWater'], listPlants[i]['lastDayWater']))
 
 	def getPlantsJson(self):
 		return self.instPlants
@@ -31,7 +31,8 @@ class ReadorJSON():
 				'name' : listPlantsEdited[i].getName(),
 				'date':listPlantsEdited[i].getDate(),
 				'timeBtwWater':listPlantsEdited[i].getTimeWater(),
-				'seasonActive':listPlantsEdited[i].getSeasonActive()
+				'seasonActive':listPlantsEdited[i].getSeasonActive(),
+				'lastDayWater':listPlantsEdited[i].getLastTimeWater()
 				})
 
 		open(PATH + "/../" + self.pathJSON, 'w').close()

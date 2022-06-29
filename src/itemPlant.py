@@ -5,6 +5,7 @@ import buttonSeasons
 from PIL import Image, ImageTk
 import os
 import infoPlant
+from datetime import datetime
 
 PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -23,6 +24,8 @@ class PlantWidget(customtkinter.CTkFrame):
     -------
         Getters of all the Methods
     """
+
+    todayWatered = False
 
     def dosomething(self):
         print("TODO")
@@ -48,7 +51,7 @@ class PlantWidget(customtkinter.CTkFrame):
         
 
         self.labelSeasons = customtkinter.CTkFrame(self, width = 200, corner_radius=20)
-        self.labelSeasons.grid_columnconfigure([0,1,2,3],minsize=50)
+        self.labelSeasons.grid_columnconfigure([0,1,2,3,4],minsize=50)
         self.labelSeasons.grid(row=1, column =0,pady=25)
 
         #DATE:
@@ -91,6 +94,16 @@ class PlantWidget(customtkinter.CTkFrame):
         self.delButton = customtkinter.CTkButton(master=self, width=75, height=75,corner_radius=8,text="", fg_color="#FF6961",command=self.deleteWidget,image= self.imageBin)
         self.delButton.grid(row=1,column=2)
 
+        #WaterButton:
+        self.imageCan = ImageTk.PhotoImage(Image.open(PATH + "/../" + "resources/wateringCan.png").resize((110, 110)))
+        self.waterCan = customtkinter.CTkButton(master=self, width=120, height=120,corner_radius=8,text="", fg_color="blue",image = self.imageCan, command= self.wateredToday)
+        self.waterCan.grid(row=0,column=5, padx=15,pady=15)
+        if(not self.plant.needsWater()):
+            self.waterCan.configure(state=tkinter.DISABLED,fg_color="grey")
+
+    def wateredToday(self):
+         self.todayWatered = True
+
     def deleteWidget(self):
         self.parent.deletePlant(self.plant.getName())
         self.destroy()
@@ -128,3 +141,9 @@ class PlantWidget(customtkinter.CTkFrame):
             return self.plant.getTimeWater()
         else:
             return self.waterPlant.get()
+
+    def getLastWaterTime(self) -> str: 
+        if self.todayWatered:
+            return datetime.today().strftime("%d/%m/%Y")
+        else:
+            return self.plant.getLastTimeWater()
