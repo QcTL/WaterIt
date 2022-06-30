@@ -103,6 +103,7 @@ class PlantWidget(customtkinter.CTkFrame):
 
     def wateredToday(self):
          self.todayWatered = True
+         self.waterCan.configure(state=tkinter.DISABLED,fg_color="grey")
 
     def deleteWidget(self):
         self.parent.deletePlant(self.plant.getName())
