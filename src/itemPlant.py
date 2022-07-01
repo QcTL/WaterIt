@@ -148,3 +148,9 @@ class PlantWidget(customtkinter.CTkFrame):
             return datetime.today().strftime("%d/%m/%Y")
         else:
             return self.plant.getLastTimeWater()
+
+    def getNeedsWater(self) -> bool:
+        return self.plant.needsWater()
+
+    def getPlant(self):
+        return self.plant

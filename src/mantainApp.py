@@ -75,6 +75,6 @@ class PlantsPage(customtkinter.CTkFrame):
                                  text="",
                                  fg_color="#D35B58", 
                                  hover_color="#C77C78",
-                                 command = self.dosomething)
+                                 command = self.frame_right.swapView)
         self.buttonManagePlants.place(relx=(0.030), rely=0.95, anchor=tkinter.CENTER)
         self.expandWhenHover(self.buttonManagePlants)
