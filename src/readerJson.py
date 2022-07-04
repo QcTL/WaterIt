@@ -5,6 +5,26 @@ import infoPlant
 PATH = os.path.dirname(os.path.realpath(__file__))
 
 class ReadorJSON():
+	"""
+    A class to save and extract the values of a json file and torn it into Plants
+
+    ...
+
+    Attributes
+    ----------
+    instPlants : list[Plants]
+    	A list of plants extracted from the json
+	pathJSON : str
+		A path to the json file relative to the project folder
+    Methods
+    -------
+		readFromJson(self):
+			read a file from the path that ahs to had a least [{}], and save all the plants that can extract to instPlants
+		getPlantsJson(self):
+			return the list of plants extracted from json, have to be called after
+		savePlantsToJson(self, listPlantsEdited):
+			save the list of plants in the parameter and save it in a json file the same path of the reading functions, making that the file replace the old version
+    """
 	instPlants = []
 	pathJSON = ""
 	def __init__(self, pathJSON):

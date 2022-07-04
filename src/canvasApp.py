@@ -2,7 +2,11 @@ import tkinter
 import customtkinter
 
 class CanvasPage(customtkinter.CTkFrame):
+    """
+    A class that represents The Canvas
 
+    ### NOT USED IN THE MOMENT
+    """
     waitingForSecond = False
     firstPointLine = []
 

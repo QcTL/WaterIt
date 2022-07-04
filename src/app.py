@@ -9,6 +9,33 @@ customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "gre
 
 
 class App(customtkinter.CTk):
+    """
+    A class that represents the tkinter Aplicacion
+
+    ...
+
+    Attributes
+    ----------
+    WIDTH: int
+        width of the screen
+    HEIGHT: int
+        height of the screen
+
+    screenShown: CTkFrame
+        With CTkFrame is the App showing in this moment
+    readingPresses: bool
+        True if has to comunicate the screenShown where the user is pressing
+
+    currFrame: str
+        A description of the screen currenly shown
+
+    Methods
+    -------
+        motion(self, event):
+            call the funtions pressedLeft drom screenShown if readingPresses is True
+        swapFrame(self):
+            change the frame is displaying to show the other one, "canvas" or "plants", updates the currFrame, the screenShown and swaps the readingPresses to only be True when currFrame is "canvas"
+    """
     WIDTH = 1600
     HEIGHT = 900
     
@@ -20,7 +47,6 @@ class App(customtkinter.CTk):
     def motion(self, event):
         if(self.readingPresses):
             x, y = event.x, event.y
-            print('{}, {}'.format(x, y))
             self.screenShown.pressedLeft(x,y)
 
     def swapFrame(self):

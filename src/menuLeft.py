@@ -4,7 +4,23 @@ import customtkinter
 
 
 class MenuLWidget(customtkinter.CTkFrame):
+	"""
+    A class to save and extract the values of a json file and torn it into Plants
 
+    ...
+
+    Attributes
+    ----------
+    parent : CTkFrame
+    	The Frame where this Widget is placed inside
+    
+    Methods
+    -------
+		addPlantList(self):
+			Create a new plant to the list of plants and adds it into the screen
+		applyChangesPlantList(self):
+			save the widgets into a json file
+	"""
 	parent = ""
 
 	def addPlantList(self):

@@ -8,7 +8,47 @@ from infoPlant import Plant
 import readerJson
 
 class MenuRWidget(customtkinter.CTkFrame):
-    
+    """
+    A class to express the right site menu
+
+    ...
+
+    Attributes
+    ----------
+    parent : CtkFrame
+        The parent where its placed
+    numPlant : int
+        Number of plants
+    llPlants : list[Plant]
+        Number of total Plants
+    llWidPlants : list[itemPlant]
+        Number of plants showing
+    actualView:
+        If there is a filter for the plants currently showing
+    Methods
+    -------
+        Getters of all the Methods
+            deletePlant(self,namePlant):
+                Deletes the plant with the name namePlant
+            createNewPlant(self):
+                Create new Plant with PlaceHolder values
+            addPlantToMenu(self):
+                Add the plant form the list plants to the list and save it like a widget in the list of widgets Plants
+            addWidgetPlantToMenu(self,widgPlant):
+                Add the widget to the scrollable menu
+            clearList(self):
+                Deletes all the widgets of the list and from the screen
+            showAllPlants(self):
+                Adds all the plants to the list of widgets and the screen
+            showWaterPlants(self):
+                Add only to the list and to the screen the plants that need watering
+            saveTheEditedPlants(self):
+                Save the edited widgets to Json so the changes can be saved with json
+            swapView(self):
+                Change if the program shows only the plants that need watering or all plants
+
+    """
+
     parent = ""
     numPlant = 0
     llPlants = []

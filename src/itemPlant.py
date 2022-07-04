@@ -19,16 +19,14 @@ class PlantWidget(customtkinter.CTkFrame):
     ----------
     plant : Plant
         Plant you want to be represented
-
+    todayWatered : bool
+        Check if the plant is watered today.
     Methods
     -------
         Getters of all the Methods
     """
 
     todayWatered = False
-
-    def dosomething(self):
-        print("TODO")
 
     def __init__(self, parent,classParent,plant):
         """
@@ -96,7 +94,7 @@ class PlantWidget(customtkinter.CTkFrame):
 
         #WaterButton:
         self.imageCan = ImageTk.PhotoImage(Image.open(PATH + "/../" + "resources/wateringCan.png").resize((110, 110)))
-        self.waterCan = customtkinter.CTkButton(master=self, width=120, height=120,corner_radius=8,text="", fg_color="blue",image = self.imageCan, command= self.wateredToday)
+        self.waterCan = customtkinter.CTkButton(master=self, width=120, height=120,corner_radius=8,text="", fg_color="#A7C7E7",image = self.imageCan, command= self.wateredToday)
         self.waterCan.grid(row=0,column=5, padx=15,pady=15)
         if(not self.plant.needsWater()):
             self.waterCan.configure(state=tkinter.DISABLED,fg_color="grey")

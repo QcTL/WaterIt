@@ -23,6 +23,7 @@ class Plant():
 			getDate(self) -> str , return plt_date
 			getSeasonActive(self) ->  list[bool] , return plt_seasonActive
 			getTimeWater(self) -> int , return plt_timeBtwWater
+			needsWater(self)->bool, return if need water based on plt_timeBtwWater and plt_latestWater
     """
 
 	plt_name: str = ""

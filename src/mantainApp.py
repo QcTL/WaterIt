@@ -5,6 +5,22 @@ import menuLeft
 import menuRight 
 
 class PlantsPage(customtkinter.CTkFrame):
+    """
+    A class og the frame where it list all the plants that can be watered and its mantainment
+    Methods
+    -------
+        createNewPlant(self)
+            creates a new Plant with Placeholder values
+        addPlantToMenu(self)
+            add a plant that is next on the list of plants on the menu
+        saveTheEditedPlants(self)
+            save the plants so i can be used after the app close
+        gotoCanvasFrame(self)
+            chage the way the plants are showed, to filter or all plants
+        expandWhenHover(self,button)
+            expend the button when the mouse is hovering it
+
+    """
 
     def createNewPlant(self):
         self.frame_right.createNewPlant()
@@ -18,9 +34,6 @@ class PlantsPage(customtkinter.CTkFrame):
     def gotoCanvasFrame(self):
         self.parent.swapFrame()
 
-    def dosomething(self):
-        print("WAKA")
-
     def expandWhenHover(self,button):
         button.bind("<Enter>", func=lambda e: button.config(
         width=self.widthButtons*2))
@@ -28,7 +41,6 @@ class PlantsPage(customtkinter.CTkFrame):
         # background color on leving widget
         button.bind("<Leave>", func=lambda e: button.config(
         width=self.widthButtons))
-    #TODO> Bind <Configure> to know the new size of the screen
 
 
     def __init__(self, parent, listPlants):

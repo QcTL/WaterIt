@@ -22,7 +22,10 @@ class SeasonWidget(customtkinter.CTkButton):
 
     Methods
     -------
-        
+        get(self):
+            Returns if the widget is active(pressed) or not
+        _flipState(self):
+            Change the state of the button, if its active, it turns it off, and vice versa
     """
 
     active : bool = False
@@ -55,7 +58,7 @@ class SeasonWidget(customtkinter.CTkButton):
             The initial state of active
         """
         
-        self.image = ImageTk.PhotoImage(Image.open(PATH + "/../" + srcImage).resize((40, 40)))
+        self.image = ImageTk.PhotoImage(Image.open(PATH + "/../" + srcImage).resize((50, 50)))
         self.active = active
         self.colorActive = colorActive
         customtkinter.CTkButton.__init__(self, master=parent,
